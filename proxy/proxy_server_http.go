@@ -14,6 +14,26 @@ func init() {
 	// Here, you can customize the transport, e.g., set timeouts or enable/disable keep-alive
 }
 
+// This code creates a new HTTP server that listens on port 8080 for default and uses the `handleRequest`
+// function to handle incoming requests. It also logs any errors
+// that occur while starting the server.
+func Start_Proxy_Server(httpPort int) {
+	// Create a new HTTP server with the handleRequest function as the handler
+
+	server := http.Server{
+		Addr:    fmt.Sprintf(":%d", httpPort),
+		Handler: http.HandlerFunc(handleRequest),
+	}
+
+	// Start the server and log any errors
+	logger.AppLog.Infof("Starting proxy server on :%d", httpPort)
+	err := server.ListenAndServe()
+	if err != nil {
+		logger.AppLog.Error("Error starting proxy server: ", err)
+	}
+	logger.AppLog.Infof("Proxy server on :%d stopped", httpPort)
+}
+
 // This function takes an incoming HTTP request, creates a new request with the
 // same method, URL, and body, sends the new request using the custom transport,
 // and forwards the response back to the client. It also handles copying headers
@@ -58,24 +78,4 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	// Copy the body of the proxy response to the original response
 	io.Copy(w, resp.Body)
-}
-
-// This code creates a new HTTP server that listens on port 8080 for default and uses the `handleRequest`
-// function to handle incoming requests. It also logs any errors
-// that occur while starting the server.
-func Start_Proxy_Server(httpPort int) {
-	// Create a new HTTP server with the handleRequest function as the handler
-
-	server := http.Server{
-		Addr:    fmt.Sprintf(":%d", httpPort),
-		Handler: http.HandlerFunc(handleRequest),
-	}
-
-	// Start the server and log any errors
-	logger.AppLog.Infof("Starting proxy server on :%d", httpPort)
-	err := server.ListenAndServe()
-	if err != nil {
-		logger.AppLog.Error("Error starting proxy server: ", err)
-	}
-	logger.AppLog.Infof("Proxy server on :%d stopped", httpPort)
 }

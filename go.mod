@@ -4,7 +4,7 @@ go 1.24.4
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
-	github.com/elazarl/goproxy v1.7.2
+	github.com/fiorix/go-diameter v3.0.2+incompatible
 	github.com/fsnotify/fsnotify v1.8.0
 	github.com/google/uuid v1.6.0
 	github.com/spf13/viper v1.20.1
@@ -16,6 +16,7 @@ require (
 require (
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
+	github.com/ishidawataru/sctp v0.0.0-20250708014235-1989182a9425 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 	github.com/sagikazarmark/locafero v0.7.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
