@@ -82,5 +82,5 @@ func Start_Proxy_Server(httpPort int) {
 	if err != nil {
 		logger.AppLog.Error("Error starting proxy server: ", err)
 	}
-	logger.AppLog.Infof("Proxy server on :%d was started successfully", httpPort)
+	logger.AppLog.Infof("Proxy server on :%d stopped", httpPort)
 }
