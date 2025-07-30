@@ -23,7 +23,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	targetURL := r.URL
 
 	logger.AppLog.Debugf("Handling request for URL: %s", targetURL)
-	logger.AppLog.Debugf("Target URI: %s", targetURL.String())
+	logger.AppLog.Debugf("Target URI: %s", targetURL.RequestURI())
 
 	proxyReq, err := http.NewRequest(r.Method, targetURL.String(), r.Body)
 	if err != nil {
