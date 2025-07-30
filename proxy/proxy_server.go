@@ -21,10 +21,9 @@ func init() {
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	// Create a new HTTP request with the same method, URL, and body as the original request
 	targetURL := r.URL
-	targetUri := targetURL.RequestURI()
 
 	logger.AppLog.Debugf("Handling request for URL: %s", targetURL)
-	logger.AppLog.Debugf("Target URI: %s", targetUri)
+	logger.AppLog.Debugf("Target URI: %s", targetURL.String())
 
 	proxyReq, err := http.NewRequest(r.Method, targetURL.String(), r.Body)
 	if err != nil {
