@@ -35,4 +35,4 @@ COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/passwd /etc/passwd
 
 # Copy the binary
-COPY --from=builder /usr/local/bin/scp /scp
+COPY --from=builder /app/scp /usr/local/bin/scp
