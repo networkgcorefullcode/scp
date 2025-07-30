@@ -122,9 +122,6 @@ func (scp *SCP) Start() {
 	self := context.SCP_Self()
 	context.InitScpContext(self)
 
-	// Start the proxy server http
-	go proxy.Start_Proxy_Server(self.PortHttp)
-
 	signalChannel := make(chan os.Signal, 1)
 	signal.Notify(signalChannel, os.Interrupt, syscall.SIGTERM)
 	go func() {
@@ -132,4 +129,7 @@ func (scp *SCP) Start() {
 		scp.Terminate()
 		os.Exit(0)
 	}()
+
+	// Start the proxy server http
+	go proxy.Start_Proxy_Server(self.PortHttp)
 }
