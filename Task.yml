@@ -1,0 +1,30 @@
+version: '2.0'
+
+jobs:
+  build:
+    steps:
+      - task: GoBuild@0
+        displayName: 'Build Go Project'
+        inputs:
+          command: 'build'
+          arguments: '-o scp.exe ./scp.go'
+
+  test:
+    steps:
+      - task: GoTest@0
+        displayName: 'Run Tests'
+        inputs:
+          command: 'test'
+          arguments: './...'
+
+  dockerize:
+    steps:
+      - script: |
+          docker build -t scp-service:latest .
+        displayName: 'Build Docker Image'
+
+  deploy:
+    steps:
+      - script: |
+          docker run -d -p 8080:8080 --name scp-service scp-service:latest
+        displayName: 'Deploy Docker Container'
