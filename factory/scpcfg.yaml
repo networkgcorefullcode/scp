@@ -1,0 +1,20 @@
+info:
+  version: "1.0.0"
+  description: "SCP (Service Control Plane) Configuration"
+
+configuration:
+  scpName: "scp-service"
+  ScpDBName: "scpdb"
+  portHttp: 8080
+  # mongodb:
+  #   name: "scp_database"
+  #   url: "mongodb://localhost:27017"
+  # kafkaInfo:
+  #   enableKafka: true
+  #   brokerUri: "localhost"
+  #   brokerPort: 9092
+  #   topicName: "scp-events"
+
+logger:
+  SCP_Proxy: 
+    debugLevel: "debug"

@@ -1,9 +1,11 @@
-package service
+package proxy
 
 import (
+	"fmt"
 	"io"
-	"log"
 	"net/http"
+
+	"github.com/networkgcorefullcode/scp/logger"
 )
 
 var customTransport = http.DefaultTransport
@@ -19,6 +21,15 @@ func init() {
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	// Create a new HTTP request with the same method, URL, and body as the original request
 	targetURL := r.URL
+
+	logger.AppLog.Debugf("Handling request for URL: %s", targetURL)
+	// Only log and use the path and raw query from the URL
+	path := targetURL.Path
+	if targetURL.RawQuery != "" {
+		path = path + "?" + targetURL.RawQuery
+	}
+	logger.AppLog.Debugf("Request path: %s", path)
+
 	proxyReq, err := http.NewRequest(r.Method, targetURL.String(), r.Body)
 	if err != nil {
 		http.Error(w, "Error creating proxy request", http.StatusInternalServerError)
@@ -54,20 +65,21 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	io.Copy(w, resp.Body)
 }
 
-// This code creates a new HTTP server that listens on port 8080 and uses the `handleRequest`
+// This code creates a new HTTP server that listens on port 8080 for default and uses the `handleRequest`
 // function to handle incoming requests. It also logs any errors
 // that occur while starting the server.
-func Start_Proxy_Server() {
+func Start_Proxy_Server(httpPort int) {
 	// Create a new HTTP server with the handleRequest function as the handler
+
 	server := http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprintf(":%d", httpPort),
 		Handler: http.HandlerFunc(handleRequest),
 	}
 
 	// Start the server and log any errors
-	log.Println("Starting proxy server on :8080")
+	logger.AppLog.Infof("Starting proxy server on :%d", httpPort)
 	err := server.ListenAndServe()
 	if err != nil {
-		log.Fatal("Error starting proxy server: ", err)
+		logger.AppLog.Error("Error starting proxy server: ", err)
 	}
 }

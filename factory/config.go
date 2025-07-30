@@ -6,6 +6,7 @@ import (
 
 const (
 	SCP_EXPECTED_CONFIG_VERSION = "1.0.0"
+	SCP_HTTP_PORT               = 8080
 )
 
 type Config struct {
@@ -22,8 +23,9 @@ type Info struct {
 }
 
 type Configuration struct {
-	SCPName   string     `yaml:"scpName,omitempty"`
+	ScpName   string     `yaml:"scpName,omitempty"`
 	ScpDBName string     `yaml:"ScpDBName,omitempty"`
+	PortHttp  int        `yaml:"portHttp,omitempty"`
 	Mongodb   *Mongodb   `yaml:"mongodb,omitempty"`
 	KafkaInfo *KafkaInfo `yaml:"kafkaInfo,omitempty"`
 }

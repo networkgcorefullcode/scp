@@ -5,6 +5,7 @@ go 1.24.4
 require (
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/fsnotify/fsnotify v1.8.0
+	github.com/google/uuid v1.6.0
 	github.com/spf13/viper v1.20.1
 	github.com/urfave/cli/v3 v3.3.8
 	go.uber.org/zap v1.27.0

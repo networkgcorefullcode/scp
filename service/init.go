@@ -2,12 +2,15 @@ package service
 
 import (
 	"os"
+	"os/signal"
 	"path/filepath"
+	"syscall"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/networkgcorefullcode/scp/context"
 	"github.com/networkgcorefullcode/scp/factory"
 	"github.com/networkgcorefullcode/scp/logger"
+	"github.com/networkgcorefullcode/scp/proxy"
 	"github.com/spf13/viper"
 	"github.com/urfave/cli/v3"
 	"go.uber.org/zap"
@@ -114,4 +117,19 @@ func (scp *SCP) WatchConfig() {
 
 func (scp *SCP) Start() {
 	logger.AppLog.Infoln("SCP started are starting")
+
+	// new scp context
+	self := context.SCP_Self()
+	context.InitScpContext(self)
+
+	// Start the proxy server http
+	go proxy.Start_Proxy_Server(self.PortHttp)
+
+	signalChannel := make(chan os.Signal, 1)
+	signal.Notify(signalChannel, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-signalChannel
+		scp.Terminate()
+		os.Exit(0)
+	}()
 }
