@@ -18,7 +18,6 @@ var (
 	CfgLog      *zap.SugaredLogger
 	ContextLog  *zap.SugaredLogger
 	DataRepoLog *zap.SugaredLogger
-	NgapLog     *zap.SugaredLogger
 	HandlerLog  *zap.SugaredLogger
 	HttpLog     *zap.SugaredLogger
 	MtLog       *zap.SugaredLogger
@@ -69,12 +68,11 @@ func init() {
 		panic(err)
 	}
 
-	AppLog = log.Sugar().With("component", "AMF", "category", "App")
-	InitLog = log.Sugar().With("component", "AMF", "category", "Init")
-	CfgLog = log.Sugar().With("component", "AMF", "category", "CFG")
-	ContextLog = log.Sugar().With("component", "AMF", "category", "Context")
-	DataRepoLog = log.Sugar().With("component", "AMF", "category", "DBRepo")
-	NgapLog = log.Sugar().With("component", "AMF", "category", "NGAP")
+	AppLog = log.Sugar().With("component", "SCP", "category", "App")
+	InitLog = log.Sugar().With("component", "SCP", "category", "Init")
+	CfgLog = log.Sugar().With("component", "SCP", "category", "CFG")
+	ContextLog = log.Sugar().With("component", "SCP", "category", "Context")
+	DataRepoLog = log.Sugar().With("component", "SCP", "category", "DBRepo")
 	HandlerLog = log.Sugar().With("component", "AMF", "category", "Handler")
 	HttpLog = log.Sugar().With("component", "AMF", "category", "HTTP")
 	MtLog = log.Sugar().With("component", "AMF", "category", "MT")
