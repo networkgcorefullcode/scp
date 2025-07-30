@@ -131,5 +131,5 @@ func (scp *SCP) Start() {
 	}()
 
 	// Start the proxy server http
-	go proxy.Start_Proxy_Server(self.PortHttp)
+	proxy.Start_Proxy_Server(self.PortHttp)
 }
