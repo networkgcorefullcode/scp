@@ -35,7 +35,7 @@ COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/passwd /etc/passwd
 
 # Copy the binary
-COPY --from=builder /app/scp /scp
+COPY --from=builder /usr/local/bin/scp /scp
 
 # Copy configuration files
 COPY --from=builder /app/factory/scpcfg.yaml /config/scpcfg.yaml
